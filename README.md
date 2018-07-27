@@ -1,1 +1,4 @@
-# CG
+DEVOPS 
+
+REQUIREMENTS
+Git
