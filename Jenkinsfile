@@ -7,6 +7,7 @@ pipeline {
                 echo 'Building...'
 	        sh 'chmod +x gradle/quickstart/gradlew'
 			sh './gradle/quickstart/gradlew clean assemble -p gradle/quickstart/'
+			sh './gradle/quickstart/gradlew uploadArchives -p gradle/quickstart/'
             }
         }
         stage('Test') {
