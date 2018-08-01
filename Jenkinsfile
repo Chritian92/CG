@@ -29,15 +29,6 @@ pipeline {
 		  reportName: "Tests Report",
 		  reportName: 'Tests'
 		])
-		publishHTML (target: [
-		    allowMissing: false,
-		  alwaysLinkToLastBuild: false,
-		  keepAll: true,
-		  reportDir: 'gradle/quickstart/build/reports/jacoco',
-		  reportFiles: 'index.html',
-		  reportName: "Tests Report",
-		  reportName: 'Jacoco Coverage Reports'
-		])
 	    }
 	    success {
 		archiveArtifacts artifacts: 'gradle/quickstart/build/libs/*.jar*', fingerprint: true
