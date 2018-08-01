@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building...'
+                echo 'Building..'
 	        sh 'chmod +x gradle/quickstart/gradlew'
 			sh './gradle/quickstart/gradlew clean assemble -p gradle/quickstart/'
 			sh './gradle/quickstart/gradlew uploadArchives -p gradle/quickstart/'
@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
+                echo 'Testing..'
 	        sh './gradle/quickstart/gradlew clean test -p gradle/quickstart/'
             }
         }
@@ -41,7 +41,6 @@ pipeline {
 			success {
 				archiveArtifacts artifacts: 'gradle/quickstart/build/libs/*.jar*', fingerprint: true
 			}
-		}
-		
+		}		
     }
 }
