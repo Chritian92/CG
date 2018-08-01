@@ -7,19 +7,12 @@ pipeline {
                 echo 'Building..'
 	        sh 'chmod +x gradle/quickstart/gradlew'
 			sh './gradle/quickstart/gradlew clean assemble -p gradle/quickstart/'
-			 archiveArtifacts artifacts: 'gradle/quickstart/build/*.jar*', fingerprint: true
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
 	        sh './gradle/quickstart/gradlew clean test -p gradle/quickstart/'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-				
             }
         }
 		post {
@@ -43,6 +36,9 @@ pipeline {
 				reportName: "Tests Report",
 				reportName: 'Jacoco Coverage Reports'
 			])
+			}
+			success {
+				archiveArtifacts artifacts: 'gradle/quickstart/build/libs/*.jar*', fingerprint: true
 			}
 		}
     }
