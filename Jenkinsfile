@@ -24,11 +24,19 @@ pipeline {
         }
 		post {
 			always {
-				junit 'quickstart/build/test-results/test/*.xml'
+				junit 'gradle/quickstart/build/test-results/test/*.xml'
 			}
 			success {
-				archiveArtifacts artifacts: 'quickstart/build/libs/*.jar', fingerprint: true
+				archiveArtifacts artifacts: 'gradle/quickstart/build/libs/*.jar', fingerprint: true
 			}
+			publishHTML (target: [
+				allowMissing: false,
+				alwaysLinkToLastBuild: false,
+				keepAll: true,
+				reportDir: 'quickstart/build/reports/tests/test',
+				reportFiles: 'index.html',
+				reportName: "Tests Report"
+			])				
 		}
     }
 }
