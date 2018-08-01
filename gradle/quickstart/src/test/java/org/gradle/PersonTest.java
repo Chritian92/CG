@@ -6,14 +6,14 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class PersonTest {
-    public Person person;
+	public Person person;
     @Before
     public void init() {
         person = new Person("Jose",
                 24,
-                1.71,
-                65,
-                7912154,
+                "1.71",
+                "65",
+                "7912154",
                 "Bolivian",
                 "Electronic Ingenier",
                 "Loki",
@@ -21,7 +21,7 @@ public class PersonTest {
     }
 
     @Test
-    public void testGetPersonName() {
+    public void testGetName() {
         assertEquals("Jose", person.getName());
     }
 
@@ -31,18 +31,18 @@ public class PersonTest {
     }
 
     @Test
-    public void testgetWeight() {
-        assertEquals(1.71, person.getWeight(), 0);
+    public void testGetWeight() {
+        assertEquals("1.71", person.getWeight());
     }
 
     @Test
     public void testGetHeight() {
-        assertEquals(65, person.getHeight(), 0);
+        assertEquals("65", person.getHeight());
     }
 
     @Test
     public void testGetCi() {
-        assertEquals(7912154, person.getCi(), 0);
+        assertEquals("7912154", person.getCi());
     }
 
     @Test
@@ -57,17 +57,12 @@ public class PersonTest {
 
     @Test
     public void testGetPetName() {
-        assertEquals("Loki", person.getPetName());
+        assertEquals("Loki", person.getPetname());
     }
 
     @Test
     public void testGetPetAge() {
-        assertEquals(2, person.getPetAge());
+        assertEquals(2, person.getPetage());
     }
 
-    @Test
-    public void testGetAllData() {
-        assertEquals("Name: Jose\n Nacionality: Bolivian \n Profession: Electronic Ingenier\n Pet Name: Loki",
-                person.getAllData());
-    }
 }
