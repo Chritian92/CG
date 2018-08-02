@@ -4,43 +4,31 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
-	        sh 'chmod +x gradle/quickstart/gradlew'
-			sh './gradle/quickstart/gradlew clean assemble -p gradle/quickstart/'
-			sh './gradle/quickstart/gradlew uploadArchives -p gradle/quickstart/'
+                sh 'chmod +x gradle/quickstart/gradlew'
+                sh './gradle/quickstart/gradlew clean assemble -p gradle/quickstart/'
             }
         }
-        stage('Test') {
+        stage('Publish') {
             steps {
-                echo 'Testing..'
-	        sh './gradle/quickstart/gradlew clean test -p gradle/quickstart/'
+                echo 'Publishing Artifact....'
+		        sh './gradle/quickstart/gradlew uploadArchives -p gradle/quickstart/'
+		        echo 'Publishing Reports....'
+		        sh './gradle/quickstart/gradlew clean test jacocoTestReport -p gradle/quickstart/'
             }
         }
-	post {
-	   always {
-		junit 'gradle/quickstart/build/test-results/test/*.xml'
-	       publishHTML (target: [
-		    allowMissing: false,
-		  alwaysLinkToLastBuild: false,
-		  keepAll: true,
-		  reportDir: 'gradle/quickstart/build/reports/tests',
-		  reportFiles: 'index.html',
-		  reportName: "Tests Report",
-		  reportName: 'Tests'
-		])
-		publishHTML (target: [
-		    allowMissing: false,
-		  alwaysLinkToLastBuild: false,
-		  keepAll: true,
-		  reportDir: 'gradle/quickstart/build/reports/jacoco',
-		  reportFiles: 'index.html',
-		  reportName: "Tests Report",
-		  reportName: 'Jacoco Coverage Reports'
-		])
-	    }
-	    success {
-		archiveArtifacts artifacts: 'gradle/quickstart/build/libs/*.jar*', fingerprint: true
-	    }
-	}		
+    }
+    post {
+       always {
+                archiveArtifacts artifacts: '**/repos/*.jar', fingerprint: true, onlyIfSuccessful: true
+                junit 'gradle/quickstart/build/test-results/test/*.xml'
+                publishHTML([allowMissing: true,
+                               alwaysLinkToLastBuild: false,
+                               keepAll: true,
+                               reportDir: 'gradle/quickstart/build/reports/coverage/',
+                               reportFiles: 'index.html',
+                               reportTitles: "Code Coverage Report",
+                               reportName: 'Code Coverage Report'])
+        }
+
     }
 }
