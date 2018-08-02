@@ -24,7 +24,7 @@ pipeline {
                 publishHTML([allowMissing: true,
                                alwaysLinkToLastBuild: false,
                                keepAll: true,
-                               reportDir: 'gradle/quickstart/build/reports/tests/test/',
+                               reportDir: 'gradle/quickstart/build/reports/coverage/',
                                reportFiles: 'index.html',
                                reportTitles: "Code Coverage Report",
                                reportName: 'Code Coverage Report'])
