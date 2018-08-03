@@ -12,7 +12,7 @@ pipelines:
     material:
       repo: 
        git: https://github.com/devops-at06/CG.git
-       master: gocd
+       master: master
     stages: 
       - Build:
           jobs:
