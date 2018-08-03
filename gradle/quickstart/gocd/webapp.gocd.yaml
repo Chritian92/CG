@@ -1,7 +1,7 @@
 format_version: 3
 pipelines:
-  lock_behavior: lockOnFailure
   quickstart-cli:
+    lock_behavior: lockOnFailure
     group: WEBAPP
     materials:
       repo:
