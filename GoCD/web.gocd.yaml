@@ -1,6 +1,6 @@
 fformat_version: 3
 pipelines:
-  fa-webapp-deploy:
+  task-pipeline:
     lock_behavior: lockOnFailure
     group: TEST
     materials:
