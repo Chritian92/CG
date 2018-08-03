@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="108">
+  <server artifactsdir="artifacts" agentAutoRegisterKey="cda17129-265f-4c4b-8863-5605eb796185" webhookSecret="98c364ff-27d2-4949-bd67-01a612c1d8fa" commandRepositoryLocation="default" serverId="9e2b04dc-b7a5-43d3-b442-d56d5b76b013" tokenGenerationKey="dab932a5-2338-4559-a064-9ddd6aa6c32f" />
+  <pipelines group="Java">
+    <pipeline name="quickstart" labeltemplate="1.0.${COUNT}" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="https://github.com/devops-at06/CG.git">
+          <filter>
+            <ignore pattern="quickstart/" />
+          </filter>
+        </git>
+      </materials>
+      <stage name="Build">
+        <jobs>
+          <job name="building">
+            <tasks>
+              <exec command="sh">
+                <arg>./gradle/quickstart/gradlew</arg>
+                <arg>clean</arg>
+                <arg>assemble</arg>
+                <arg>-p</arg>
+                <arg>gradle/quickstart/</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+            <artifacts>
+              <artifact type="build" src="gradle/quickstart/build/libs/*.jar" />
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="Test">
+        <jobs>
+          <job name="test">
+            <tasks>
+              <exec command="sh">
+                <arg>./gradle/quickstart/gradlew</arg>
+                <arg>clean</arg>
+                <arg>test</arg>
+                <arg>-p</arg>
+                <arg>gradle/quickstart/</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="sh">
+                <arg>./gradle/quickstart/gradlew</arg>
+                <arg>clean</arg>
+                <arg>test</arg>
+                <arg>jacocoTestReport</arg>
+                <arg>-p</arg>
+                <arg>gradle/quickstart/</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+            <artifacts>
+              <artifact type="test" src="gradle/quickstart/build/test-results/test/*.xml" dest="testResult" />
+              <artifact type="build" src="gradle/quickstart/build/jacocoHtml/*html" dest="jacocoReports" />
+              <artifact type="build" src="gradle/quickstart/build/reports/tests/test/index.html" dest="htmlReports" />
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <agents>
+    <agent hostname="2c294c695569" ipaddress="172.19.0.3" uuid="3264afd9-410e-4cc4-997e-77e5054bb856">
+      <resources>
+        <resource>alpine</resource>
+      </resources>
+    </agent>
+  </agents>
+</cruise>
