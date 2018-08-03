@@ -37,8 +37,9 @@ pipelines:
                       - -p
                       - gradle/quickstart
                 - exec:
-                    command: ./gradle/quickstart/gradlew
+                    command: sh
                     arguments:
+                      - "./gradle/quickstart/gradlew"
                       - clean
                       - test
                       - jacocoTestReport
