@@ -13,8 +13,9 @@ pipelines:
             building: 
               tasks:
                 - exec:
-                    command: sh ./gradle/quickstart/gradlew
+                    command: sh
                     arguments:
+                      - "./gradle/quickstart/gradlew"
                       - "clean"
                       - "assemble"
                       - "-p"
@@ -28,8 +29,9 @@ pipelines:
             Unit_Test: 
               tasks:
                 - exec:
-                    command: sh ./gradle/quickstart/gradlew
+                    command: sh
                     arguments:
+                      - "./gradle/quickstart/gradlew"
                       - clean
                       - test
                       - -p
