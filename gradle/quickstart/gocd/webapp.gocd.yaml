@@ -18,11 +18,11 @@ pipelines:
                       - "clean"
                       - "assemble"
                       - "-p"
-                      - "quickstart"
+                      - "gradle/quickstart"
               artifacts:
                 - build:
                     source: gradle/quickstart/build/libs/*.jar
-                    destination: Build
+                    destination: war
       - Test:
           jobs:
             Unit_Test: 
