@@ -13,13 +13,12 @@ pipelines:
             building: 
               tasks:
                 - exec:
-                    command: sh
+                    command: ./gradle/quickstart/gradlew
                     arguments:
-                      - "./gradle/quickstart/gradlew"
                       - "clean"
                       - "assemble"
                       - "-p"
-                      - "gradle/quickstart/"
+                      - "gradle/quickstart"
               artifacts:
                 - build:
                     source: gradle/quickstart/build/libs/*.jar
@@ -29,13 +28,12 @@ pipelines:
             Unit_Test: 
               tasks:
                 - exec:
-                    command: sh
+                    command: ./gradle/quickstart/gradlew
                     arguments:
-                      - "./gradle/quickstart/gradlew"
                       - clean
                       - test
                       - -p
-                      - gradle/quickstart/
+                      - gradle/quickstart
               artifacts:
                 - build:
                     source: gradle/quickstart/build/reports/tests/test/**/*
