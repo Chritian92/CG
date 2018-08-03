@@ -1,12 +1,12 @@
 format_version: 3
 pipelines:
-  quickstart-yaml-deploy:
+  fa-webapp-deploy:
     lock_behavior: lockOnFailure
     group: TEST
     materials:
       repo: 
-       git: https://github.com/devops-at06/CG.git
-       branch: master
+        git: https://github.com/devops-at06/CG.git
+        branch: master
     stages: 
       - Build:
           jobs:
@@ -24,13 +24,14 @@ pipelines:
                 - build:
                     source: gradle/quickstart/build/libs/*.jar
                     destination: war
-      - Publish:
+      - Test:
           jobs:
             Publishing: 
               tasks:
                 - exec:
-                    command: ./gradle/quickstart/gradlew
+                    command: sh
                     arguments:
+                      - "./gradle/quickstart/gradlew"
                       - clean
                       - test
                       - -p
