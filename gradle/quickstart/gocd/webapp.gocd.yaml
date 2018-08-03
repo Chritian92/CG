@@ -13,9 +13,8 @@ pipelines:
             Building: 
               tasks:
                 - exec:
-                    command: sh
+                    command: ./gradle/quickstart/gradlew
                     arguments:
-                      - "./gradle/quickstart/gradlew"
                       - "clean"
                       - "assemble"
                       - "-p"
@@ -29,17 +28,15 @@ pipelines:
             Publishing: 
               tasks:
                 - exec:
-                    command: sh
+                    command: ./gradle/quickstart/gradlew
                     arguments:
-                      - "./gradle/quickstart/gradlew"
                       - clean
                       - test
                       - -p
                       - gradle/quickstart
                 - exec:
-                    command: sh
+                    command: ./gradle/quickstart/gradlew
                     arguments:
-                      - "./gradle/quickstart/gradlew"
                       - clean
                       - test
                       - jacocoTestReport
