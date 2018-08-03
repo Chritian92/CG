@@ -6,7 +6,7 @@ pipelines:
     materials:
       repo: 
        git: https://github.com/devops-at06/CG.git
-       brach: task7
+       branch: task7
     stages: 
       - Build:
           jobs:
