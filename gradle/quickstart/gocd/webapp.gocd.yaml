@@ -34,6 +34,14 @@ pipelines:
                       - test
                       - -p
                       - gradle/quickstart
+                - exec:
+                    command: ./gradle/quickstart/gradlew
+                    arguments:
+                      - clean
+                      - test
+                      - jacocoTestReport
+                      - -p
+                      - gradle/quickstart/
               artifacts:
                 - build:
                     source: gradle/quickstart/build/reports/tests/test/**/*
