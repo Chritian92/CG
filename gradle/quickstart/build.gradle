@@ -39,6 +39,7 @@ uploadArchives {
            dirs 'repos'
        }
     }
+}
 buildscript {
   repositories {
     maven {
