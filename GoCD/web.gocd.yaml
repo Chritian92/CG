@@ -22,7 +22,8 @@ pipelines:
               artifacts:
                 - build:
                     source: gradle/quickstart/build/libs/*.jar
-                    destination: war
+                    destination: build
+
       - Test:
           jobs:
             Publishing: 
@@ -52,3 +53,15 @@ pipelines:
               tabs:
                 Xml_Test_Result: xml/TEST-org.gradle.PersonTest.xml
                 Test_Summary: html_report/index.html
+                
+      - CodeQuality:
+          jobs:
+            CodeQuality: 
+              tasks:
+                - exec:
+                    command: ./gradle/quickstart/gradlew
+                    arguments:
+                      - sonarqube
+                      - -p
+                      - gradle/quickstart/                
+

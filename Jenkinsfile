@@ -8,6 +8,18 @@ pipeline {
                 sh './gradle/quickstart/gradlew clean assemble -p gradle/quickstart/'
             }
         }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+                sh'./gradle/quickstart/gradlew test -p quickstart/'
+            }
+        }
+        stage('CodeQuality') {
+            steps {
+                echo 'Code Quality..'
+                sh'./gradle/quickstart/gradlew sonarqube -p quickstart/'
+            }
+        }
         stage('Publish') {
             steps {
                 echo 'Publishing Artifact....'

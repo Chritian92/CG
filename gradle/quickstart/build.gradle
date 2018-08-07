@@ -1,7 +1,9 @@
-apply plugin: 'java'
-apply plugin: "jacoco"
-apply plugin: "org.sonarqube"
+plugins {
+  id "org.sonarqube" version "2.6.2"
+}
 
+apply plugin: 'java'
+apply plugin: 'jacoco'
 
 version = '1.0'
 jar {
@@ -13,6 +15,11 @@ jar {
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+    testCompile group: 'junit', name: 'junit', version: '4.12'        
 }
 
 jacoco {
@@ -28,25 +35,10 @@ jacocoTestReport {
     }
 }
 
-dependencies {
-    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
-    testCompile group: 'junit', name: 'junit', version: '4.+'
-}
-
 uploadArchives {
     repositories {
        flatDir {
            dirs 'repos'
        }
     }
-}
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
-  }
 }
