@@ -23,6 +23,7 @@ pipelines:
                 - build:
                     source: gradle/quickstart/build/libs/*.jar
                     destination: build
+
       - Test:
           jobs:
             Publishing: 
@@ -63,3 +64,4 @@ pipelines:
                       - sonarqube
                       - -p
                       - gradle/quickstart/                
+
