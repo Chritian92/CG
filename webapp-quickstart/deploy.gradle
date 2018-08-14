@@ -20,7 +20,7 @@ task deploy {
 		    execute "sudo rm -rf ${tomcat_webapps}/${war_name}", ignoreError: true
         
         execute 'sudo Sending war file...'
-        put from: 'build/libs/webapp-quickstart.war', into: '/opt/tomcat/webapps/'
+        put from: "${war_path}/${war_name}.war", into: "/tmp/${war_name}.war"
 		    execute "sudo cp f /tmp/${war_name}.war ${tomcat_webapps}//${war_name}.war", ignoreError: true
 		    remove "/tmp/${war_name}.war"
         

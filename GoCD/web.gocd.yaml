@@ -71,9 +71,9 @@ pipelines:
     materials:
       repo:
         git: https://github.com/devops-at06/CG.git
-        branch: master
+        branch: new_changes
     stages:
-      - Commit:
+      - Build:
           jobs:
             Building:
               tasks:
@@ -87,7 +87,7 @@ pipelines:
               artifacts:
                 - build:
                     source: webapp-quickstart/build/libs/*.war
-                    destination: war
+                    destination: build
       
       - Deploy:
           jobs:
@@ -100,10 +100,5 @@ pipelines:
                       - webapp-quickstart/deploy.gradle
                       - deploy
                       - -Pdev_server=10.28.135.237
-                      - -Puser_server=ubuntu
-                      - -Pkey_path={$HOME}/.ssh/authorized_keys
-                      - -Ptomcat_webapps=/opt/tomcat/webapps
-                      - -Pwar_path=build/libs
-                      - -Pwar_name=webapp-quickstart
                       - -p
                       - webapp-quickstart
