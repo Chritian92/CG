@@ -78,32 +78,32 @@ pipelines:
             Building:
               tasks:
                 - exec:
-                    command: ./webapp/gradlew
+                    command: ./webapp-quickstart/gradlew
                     arguments:
                       - "clean"
                       - "assemble"
                       - "-p"
-                      - "webapp"
+                      - "webapp-quickstart"
               artifacts:
                 - build:
-                    source: webapp/build/libs/*.war
+                    source: webapp-quickstart/build/libs/*.war
                     destination: war
       - Test:
           jobs:
             Unit_Test:
               tasks:
                 - exec:
-                    command: ./webapp/gradlew
+                    command: ./webapp-quickstart/gradlew
                     arguments:
                       - tests
                       - -p
-                      - webapp
+                      - webapp-quickstart
               artifacts:
                 - build:
-                    source: webapp/build/reports/tests/test/**/*
+                    source: webapp-quickstart/build/reports/tests/test/**/*
                     destination: html
                 - test:
-                    source: webapp/build/test-results/test/*.xml
+                    source: webapp-quickstart/build/test-results/test/*.xml
                     destination: xml
               tabs:
                 unit_test: html/index.html
@@ -112,11 +112,16 @@ pipelines:
             Application:
               tasks:
                 - exec:
-                    command: ./webapp/gradlew
+                    command: ./webapp-quickstart/gradlew
                     arguments:
                       - -b
-                      - webapp/deploy.gradle
+                      - webapp-quickstart/deploy.gradle
                       - deploy
                       - -Pdev_server=10.28.135.237
+                      - -Puser_server=ubuntu
+                      - -Pkey_path={$HOME}/.ssh/authorized_keys
+                      - -Ptomcat_webapps=/opt/tomcat/webapps
+                      - -Pwar_path=build/libs
+                      - -Pwar_name=webapp-quickstart
                       - -p
-                      - webapp
+                      - webapp-quickstart
