@@ -63,5 +63,60 @@ pipelines:
                     arguments:
                       - sonarqube
                       - -p
-                      - gradle/quickstart/                
+                      - gradle/quickstart/
 
+  webapp-quickstart:
+    lock_behavior: lockOnFailure
+    group: Application
+    materials:
+      repo:
+        git: https://github.com/devops-at06/CG.git
+        branch: master
+    stages:
+      - Commit:
+          jobs:
+            Building:
+              tasks:
+                - exec:
+                    command: ./webapp/gradlew
+                    arguments:
+                      - "clean"
+                      - "assemble"
+                      - "-p"
+                      - "webapp"
+              artifacts:
+                - build:
+                    source: webapp/build/libs/*.war
+                    destination: war
+      - Test:
+          jobs:
+            Unit_Test:
+              tasks:
+                - exec:
+                    command: ./webapp/gradlew
+                    arguments:
+                      - tests
+                      - -p
+                      - webapp
+              artifacts:
+                - build:
+                    source: webapp/build/reports/tests/test/**/*
+                    destination: html
+                - test:
+                    source: webapp/build/test-results/test/*.xml
+                    destination: xml
+              tabs:
+                unit_test: html/index.html
+      - Deploy:
+          jobs:
+            Application:
+              tasks:
+                - exec:
+                    command: ./webapp/gradlew
+                    arguments:
+                      - -b
+                      - webapp/deploy.gradle
+                      - deploy
+                      - -Pdev_server=10.28.135.237
+                      - -p
+                      - webapp
