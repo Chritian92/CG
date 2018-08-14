@@ -5,8 +5,8 @@ pipelines:
     group: TEST
     materials:
       repo: 
-        git: https://github.com/devops-at06/CG.git
-        branch: master
+        git: https://github.com/Chritian92/CG.git
+        branch: new_changes
     stages: 
       - Build:
           jobs:
@@ -70,7 +70,7 @@ pipelines:
     group: Application
     materials:
       repo:
-        git: https://github.com/devops-at06/CG.git
+        git: https://github.com/Chritian92/CG.git
         branch: new_changes
     stages:
       - Build:
