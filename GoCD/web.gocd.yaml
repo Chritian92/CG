@@ -93,6 +93,10 @@ pipelines:
           jobs:
             Application:
               tasks:
+                - fetch:
+                    stage: Commit
+                    job: Building
+                    source: war/
                 - exec:
                     command: ./webapp-quickstart/gradlew
                     arguments:
@@ -100,5 +104,6 @@ pipelines:
                       - webapp-quickstart/deploy.gradle
                       - deploy
                       - -Pdev_server=10.28.135.237
+                      - -Puser_home=/home/go
                       - -p
                       - webapp-quickstart
