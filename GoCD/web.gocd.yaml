@@ -72,6 +72,8 @@ pipelines:
       repo:
         git: https://github.com/Chritian92/CG.git
         branch: new_changes
+        whitelist:
+            - webapp-quickstart/**/*
     stages:
       - Build:
           jobs:
