@@ -4,9 +4,9 @@ plugins {
 
 remotes {
   webServer {
-    host = dev_server
-    user = user_server
-    identity = file(key_path])
+    host = "${dev_server}"
+    user = "${user_server}"
+    identity = file("${key_path}")
   }
 }
 
