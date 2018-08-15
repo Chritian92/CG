@@ -87,14 +87,14 @@ pipelines:
               artifacts:
                 - build:
                     source: webapp-quickstart/build/libs/*.war
-                    destination: build
+                    destination: war
       
       - Deploy:
           jobs:
             Application:
               tasks:
                 - fetch:
-                    stage: Commit
+                    stage: Build
                     job: Building
                     source: war/
                 - exec:
@@ -104,6 +104,6 @@ pipelines:
                       - webapp-quickstart/deploy.gradle
                       - deploy
                       - -Pdev_server=10.28.135.237
-                      - -Puser_home=/home/go
+                      - -Pwar_path=war
                       - -p
                       - webapp-quickstart
