@@ -11,13 +11,13 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                sh'./gradle/quickstart/gradlew test -p quickstart/'
+                sh'./gradle/quickstart/gradlew test -p gradle/quickstart/'
             }
         }
         stage('CodeQuality') {
             steps {
                 echo 'Code Quality..'
-                sh'./gradle/quickstart/gradlew sonarqube -p quickstart/'
+                sh'./gradle/quickstart/gradlew sonarqube -p gradle/quickstart/'
             }
         }
         stage('Publish') {
