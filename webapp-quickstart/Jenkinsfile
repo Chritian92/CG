@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                sh'./webapp-quickstart/gradlew clean assemble -p webapp-quickstart/'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploy..'
+                sh'./webapp-quickstart/gradlew -b deploy.gradle deploy -Pkey_path=/home/var.pem -Pdev_server=10.28.135.237 -Pwar_path=war -Pwar_name=webapp-quickstart -p webapp-quickstart/'
+            }
+        }          
+    }
+    post {
+        success {
+			archiveArtifacts artifacts: 'webapp-quickstart/build/libs/*.war', fingerprint: true
+        }
+    }
+}
