@@ -11,7 +11,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy..'
-                sh'./webapp-quickstart/gradlew -b deploy.gradle deploy -Pdev_server=10.28.135.237 -Pwar_path=war -Pwar_name=webapp-quickstart -p webapp-quickstart/'
+                sh'./webapp-quickstart/gradlew -b deploy.gradle deploy -Pkey_path=/home/var.pem -Pdev_server=10.28.135.237 -Pwar_path=war -Pwar_name=webapp-quickstart -p webapp-quickstart/'
             }
         }          
     }
